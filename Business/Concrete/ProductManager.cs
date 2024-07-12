@@ -14,7 +14,7 @@ namespace Business.Concrete
         private  readonly IProductDal _productDal = productDal;
         public void Add(Product product)
         {
-            if (DateTime.Now.Hour == 20)
+            if (DateTime.Now.Hour == 21)
             {
                 _productDal.Add(product);
             }
@@ -27,7 +27,17 @@ namespace Business.Concrete
 
         public void Delete(Product product)
         {
-            throw new NotImplementedException();
+            Product deleteProduct = null;
+            //foreach (var item in _productDal.GetAll().)
+            //{
+            //    if (item.Id == product.Id)
+            //    {
+            //        deleteProduct = item;
+            //    }
+
+            //}
+           deleteProduct =  _productDal.GetAll().SingleOrDefault(p => p.Id == product.Id);
+            _productDal.Delete(deleteProduct);
         }
 
         public List<Product> GetAllProduct()

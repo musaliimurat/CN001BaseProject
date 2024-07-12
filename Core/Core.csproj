@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DataAccess\Concrete\" />
     <Folder Include="Entities\Concrete\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.5.1" />
   </ItemGroup>
 
 </Project>
