@@ -1,8 +1,8 @@
 ﻿using Core.DataAccess.Abstract;
 using Entities.Abstract;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -16,7 +16,7 @@ namespace Core.DataAccess.Concrete
     {
         public void Add(TEntiy entity)
         {
-            using (var context = new TContext())
+            using (TContext context = new TContext())
             {
                 var addedEntity = context.Entry(entity);
                 addedEntity.State = EntityState.Added;

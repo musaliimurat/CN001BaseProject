@@ -23,7 +23,7 @@ foreach (var item in productManager.GetAllProduct())
         productManager.Delete(item);
     }
 }
-
+productManager.Delete(product1);
 CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
 
 Customer customer1 = new() { Id = 1, FirstName = "murad" };
