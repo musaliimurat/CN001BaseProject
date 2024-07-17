@@ -6,7 +6,7 @@ using Entities.Concrete;
 
 ProductManager productManager = new ProductManager(new EfProductDal());
 
-//Product product1 = new() { ProductName = "Hp envy", Description="256ssd 16ram", IsDiscount = false, DiscountRate = 0, Price=4567, IsDelete=false,ProductCount=3  };
+Product product1 = new() { ProductName = "Hp pavilion", Description = "256ssd 16ram", IsDiscount = false, DiscountRate = 0, Price = 4567, IsDelete = false, ProductCount = 3 };
 //productManager.Add(product1);
 
 var allProducts = productManager.GetAllProduct();
@@ -16,19 +16,12 @@ var allProducts = productManager.GetAllProduct();
 //    Console.WriteLine(item.ProductName);
 //}
 
+Console.WriteLine(allProducts.Message);
+//foreach (var product in allProducts.Data)
+//{
+//        Console.WriteLine(product.ProductName);
 
-foreach (var product in allProducts)
-{
-
-    if (product.Id == 7)
-    {
-        product.ProductName = "Asus";
-         productManager.Update(product);
-       
-
-    }
-
-}
+//}
 var products = productManager.GetAllProduct();
 
 //Console.WriteLine("=====================================");

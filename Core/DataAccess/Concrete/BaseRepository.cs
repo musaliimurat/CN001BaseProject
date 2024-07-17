@@ -45,7 +45,7 @@ namespace Core.DataAccess.Concrete
         {
             using TContext context = new();
 
-            return context.Set<TEntiy>().Where(filter).ToList();
+            return filter !=null? context.Set<TEntiy>().Where(filter).ToList() : context.Set<TEntiy>().ToList();
         }
 
         public void Update(TEntiy entity)
