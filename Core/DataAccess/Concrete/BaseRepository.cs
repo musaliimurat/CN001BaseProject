@@ -14,6 +14,7 @@ namespace Core.DataAccess.Concrete
         where TEntiy : class, IEntity, new()
         where TContext : DbContext, new()
     {
+        
         public void Add(TEntiy entity)
         {
             using (TContext context = new TContext())
@@ -27,22 +28,32 @@ namespace Core.DataAccess.Concrete
 
         public void Delete(TEntiy entity)
         {
-            throw new NotImplementedException();
+            using TContext context = new();
+            var deletedEntity = context.Entry(entity);
+            deletedEntity.State = EntityState.Modified;
+            context.SaveChanges();
+
         }
 
         public TEntiy Get(Expression<Func<TEntiy, bool>> filter)
         {
-            throw new NotImplementedException();
+            using TContext context = new TContext();
+            return context.Set<TEntiy>().SingleOrDefault(filter);
         }
 
         public List<TEntiy> GetAll(Expression<Func<TEntiy, bool>> filter = null)
         {
-            throw new NotImplementedException();
+            using TContext context = new();
+
+            return context.Set<TEntiy>().Where(filter).ToList();
         }
 
         public void Update(TEntiy entity)
         {
-            throw new NotImplementedException();
+            using TContext context = new TContext();
+            var modifyEntity = context.Entry(entity);
+            modifyEntity.State = EntityState.Modified;
+            context.SaveChanges();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess.Concrete;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -9,31 +10,8 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EF
 {
-    public class EfCustomerDal : ICustomerDal
+    public class EfCustomerDal : BaseRepository<Customer, BaseProjectContext>, ICustomerDal
     {
-        public void Add(Customer customer)
-        {
-            Console.WriteLine($"{customer.FirstName} elave olundu");
-        }
-
-        public void Delete(Customer entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Customer Get(Expression<Func<Customer, bool>> filter)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Customer> GetAll(Expression<Func<Customer, bool>> filter = null)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(Customer entity)
-        {
-            throw new NotImplementedException();
-        }
+   
     }
 }

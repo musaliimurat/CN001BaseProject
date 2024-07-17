@@ -6,8 +6,8 @@ using System.Linq.Expressions;
 
 namespace DataAccess.Concrete.EF
 {
-    public class EfProductDal : BaseRepository<Product, BaseProjectContext>, IProductDal
+    public class EfProductDal : BaseRepository<Product, BaseProjectContext> , IProductDal   
     {
-        
+
     }
 }
