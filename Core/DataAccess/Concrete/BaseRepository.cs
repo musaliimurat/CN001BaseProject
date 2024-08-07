@@ -10,50 +10,42 @@ using System.Threading.Tasks;
 
 namespace Core.DataAccess.Concrete
 {
-    public class BaseRepository<TEntiy, TContext> : IBaseRepository<TEntiy>
+    public class BaseRepository<TEntiy, TContext>(TContext context) : IBaseRepository<TEntiy>
         where TEntiy : class, IEntity, new()
         where TContext : DbContext, new()
     {
+        private readonly TContext _context = context;
         
         public void Add(TEntiy entity)
         {
-            using (TContext context = new TContext())
-            {
-                var addedEntity = context.Entry(entity);
+                var addedEntity = _context.Entry(entity);
                 addedEntity.State = EntityState.Added;
-
-                context.SaveChanges();
-            }
+                _context.SaveChanges();
         }
 
         public void Delete(TEntiy entity)
         {
-            using TContext context = new();
-            var deletedEntity = context.Entry(entity);
+            var deletedEntity = _context.Entry(entity);
             deletedEntity.State = EntityState.Modified;
-            context.SaveChanges();
+            _context.SaveChanges();
 
         }
 
         public TEntiy Get(Expression<Func<TEntiy, bool>> filter)
         {
-            using TContext context = new TContext();
-            return context.Set<TEntiy>().SingleOrDefault(filter);
+            return _context.Set<TEntiy>().SingleOrDefault(filter);
         }
 
         public List<TEntiy> GetAll(Expression<Func<TEntiy, bool>> filter = null)
         {
-            using TContext context = new();
-
-            return filter !=null? context.Set<TEntiy>().Where(filter).ToList() : context.Set<TEntiy>().ToList();
+            return filter !=null? _context.Set<TEntiy>().Where(filter).ToList() : _context.Set<TEntiy>().ToList();
         }
 
         public void Update(TEntiy entity)
         {
-            using TContext context = new TContext();
-            var modifyEntity = context.Entry(entity);
+            var modifyEntity = _context.Entry(entity);
             modifyEntity.State = EntityState.Modified;
-            context.SaveChanges();
+            _context.SaveChanges();
         }
     }
 }

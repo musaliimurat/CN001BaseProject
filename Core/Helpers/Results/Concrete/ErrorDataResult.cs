@@ -24,5 +24,6 @@ namespace Core.Helpers.Results.Concrete
         {
             
         }
+      
     }
 }

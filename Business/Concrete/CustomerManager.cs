@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Core.Helpers.Results.Abstract;
+using Core.Helpers.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
 
@@ -8,16 +10,16 @@ namespace Business.Concrete
     public class CustomerManager(ICustomerDal customerDal) : ICustomerService
     {
         private readonly ICustomerDal _customerDal = customerDal;
-        public void Add(Customer customer)
+        public IResult Add(Customer customer)
         {
             //business code
             if (customer.FirstName.Length >= 5)
             {
                 _customerDal.Add(customer);
+                return new SuccessResult();
 
             }
-            else
-                Console.WriteLine("adlandirma qaydasi yanlisdir");
+            else return new ErrorResult();
         }
     }
 }

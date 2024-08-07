@@ -1,33 +1,37 @@
 ﻿using Business.Abstract;
+using Business.Validation.FluentValidation;
+using Core.Aspects.Autofac.Validation.FluentValidation;
+using Core.CrossCuttingConcern.Validation.FluentValidation;
 using Core.Helpers.Results.Abstract;
 using Core.Helpers.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.Dto;
+using FluentValidation;
 
 namespace Business.Concrete
 {
-    public class ProductManager(IProductDal productDal) : IProductService
+    public class ProductManager(IProductDal productDal) : IProductService 
     {
         private readonly IProductDal _productDal = productDal;
+
+        //AOP => Aspect Oriented Programming
+        // Ioc Container
+        //interception => Cross Cutting Concern => Authoritaion, Cache,log, optimizasion, Exception handlig
+
+        [ValidationAspect<Product>(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
-            if (product.ProductName.Length > 2)
-            {
                 _productDal.Add(product);
-
                 return new SuccessResult("product elave olundu");
-            }
-            else
-                return new ErrorResult("product name lenght 2den boyuk olmalidir");
-
         }
 
-        public IResult Delete(Product product)
+        public IResult Delete(int id)
         {
             Product deleteProduct = null;
-            Product resultProduct = _productDal.Get(p=>p.IsDelete == false && p.Id == product.Id);
+            Product resultProduct = _productDal.Get(p => p.IsDelete == false && p.Id == id);
             if (resultProduct != null)
-               deleteProduct = resultProduct;
+                deleteProduct = resultProduct;
             deleteProduct.IsDelete = true;
             _productDal.Delete(deleteProduct);
             return new SuccessResult();
@@ -36,18 +40,29 @@ namespace Business.Concrete
 
         public IDataResult<List<Product>> GetAllProduct()
         {
-            var products = _productDal.GetAll(p => p.IsDelete == true).ToList();
+            var products = _productDal.GetAll(p => p.IsDelete == false).ToList();
             if (products.Count > 0)
                 return new SuccessDataResult<List<Product>>(products);
             else return new ErrorDataResult<List<Product>>("xeta bash verdi");
         }
 
-        public IDataResult<Product> GetProduct(Product product)
+        public IDataResult<List<ProductDto>> GetAllProductByCategory(int categoryId)
         {
-            Product getProduct = _productDal.Get(p => p.Id == product.Id);
+            var result = _productDal.GetAllProductsByCategory(categoryId);
+            if (result.Count > 0)
+            {
+                return new SuccessDataResult<List<ProductDto>>(result, "siyahi yuklendi");
+            }
+            else return new ErrorDataResult<List<ProductDto>>(result, "xeta bash verdi");
+        }
 
+        public IDataResult<Product> GetProduct(int id)
+        {
+            Product getProduct = _productDal.Get(p => p.Id == id);
 
-            return new SuccessDataResult<Product>(product, "get product loaded");
+            if (getProduct != null)
+                return new SuccessDataResult<Product>(getProduct, "get product loaded");
+            else return new ErrorDataResult<Product>(getProduct, "mehsul tapilmadi");
         }
 
         public IResult Update(Product product)

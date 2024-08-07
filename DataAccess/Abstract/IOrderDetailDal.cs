@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Abstract
 {
-    public interface IProductDal : IBaseRepository<Product>
+    public interface IOrderDetailDal : IBaseRepository<OrderDetail>
     {
-        List<ProductDto> GetAllProductsByCategory(int categoryId);
+        List<OrderDetailDto> GetAllOrderDetails();
     }
 }

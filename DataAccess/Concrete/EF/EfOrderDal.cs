@@ -4,15 +4,14 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EF
 {
-    public class EfCustomerDal : BaseRepository<Customer, BaseProjectContext>, ICustomerDal
+    public class EfOrderDal : BaseRepository<Order, BaseProjectContext> , IOrderDal
     {
-        public EfCustomerDal(BaseProjectContext context) : base(context)
+        public EfOrderDal(BaseProjectContext context) : base(context)
         {
             
         }

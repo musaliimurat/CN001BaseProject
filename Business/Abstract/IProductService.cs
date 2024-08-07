@@ -1,5 +1,6 @@
 ﻿using Core.Helpers.Results.Abstract;
 using Entities.Concrete;
+using Entities.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,9 @@ namespace Business.Abstract
     {
         IResult Add(Product product );
         IResult Update( Product product );
-        IResult Delete( Product product );
+        IResult Delete( int id );
         IDataResult<List<Product>> GetAllProduct();
-        IDataResult<Product> GetProduct(Product product);
+        IDataResult<Product> GetProduct(int id);
+        IDataResult<List<ProductDto>> GetAllProductByCategory(int categoryId);
     }
 }

@@ -4,7 +4,7 @@ using DataAccess.Concrete.EF;
 using Entities.Abstract;
 using Entities.Concrete;
 
-ProductManager productManager = new ProductManager(new EfProductDal());
+ProductManager productManager = new ProductManager(new EfProductDal(new BaseProjectContext()));
 
 Product product1 = new() { ProductName = "Hp pavilion", Description = "256ssd 16ram", IsDiscount = false, DiscountRate = 0, Price = 4567, IsDelete = false, ProductCount = 3 };
 //productManager.Add(product1);
@@ -16,12 +16,16 @@ var allProducts = productManager.GetAllProduct();
 //    Console.WriteLine(item.ProductName);
 //}
 
-Console.WriteLine(allProducts.Message);
-//foreach (var product in allProducts.Data)
-//{
-//        Console.WriteLine(product.ProductName);
 
-//}
+
+Console.WriteLine("test-2");
+
+Console.WriteLine(allProducts.Message);
+foreach (var product in allProducts.Data)
+{
+    Console.WriteLine(product.ProductName);
+
+}
 var products = productManager.GetAllProduct();
 
 //Console.WriteLine("=====================================");
