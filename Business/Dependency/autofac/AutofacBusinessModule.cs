@@ -3,6 +3,7 @@ using Autofac.Extras.DynamicProxy;
 using Business.Abstract;
 using Business.Concrete;
 using Castle.DynamicProxy;
+using Core.Helpers.Business;
 using Core.Helpers.Interceptors;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EF;
@@ -21,12 +22,13 @@ namespace Business.Dependency.autofac
             builder.RegisterType<EfOrderDal>().As<IOrderDal>().SingleInstance();
             builder.RegisterType<EfOrderDetailDal>().As<IOrderDetailDal>().SingleInstance();
             builder.RegisterType<OrderDetailManager>().As<IOrderDetailService>().SingleInstance();
-
+            builder.RegisterType<EfProductImageDal>().As<IProductImageDal>().SingleInstance();
+            builder.RegisterType<ProductImageManager>().As<IProductImageService>().SingleInstance();
 
 
 
             builder.RegisterType<BaseProjectContext>().As<BaseProjectContext>().SingleInstance();
-
+            builder.RegisterType<AddPhotoHelper>().As<IAddPhotoHelperService>().SingleInstance();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()

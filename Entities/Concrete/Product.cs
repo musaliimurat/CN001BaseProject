@@ -17,5 +17,6 @@ namespace Entities.Concrete
         public bool IsDiscount { get; set; }
         public int DiscountRate { get; set; }
         public int CategoryId { get; set; }
+        public bool IsFeatured { get; set; }
     }
 }
