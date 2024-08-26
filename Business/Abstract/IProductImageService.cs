@@ -14,5 +14,6 @@ namespace Business.Abstract
 		IResult AddProductImage(ProductImageAddDto productImageAddDto);
 
 		IDataResult<List<ProductImageToProductsDto>> GetAllProductImagesByFeatured();
+		IDataResult<List<ProductImage>> GetProductImageById(int productId);
 	}
 }

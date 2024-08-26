@@ -17,6 +17,7 @@ namespace Business.Concrete
 	{
 		private readonly IProductImageDal _productImageDal = productImageDal;
 		private readonly IAddPhotoHelperService _addPhotoHelperService = addPhotoHelperService;
+
 		public IResult AddProductImage(ProductImageAddDto productImageAddDto)
 		{
 			var guid = Guid.NewGuid() + "-" + productImageAddDto.Photo.FileName;
@@ -39,5 +40,15 @@ namespace Business.Concrete
             }
 			else return new ErrorDataResult<List<ProductImageToProductsDto>>(result);
 		}
+
+		public IDataResult<List<ProductImage>> GetProductImageById(int productId)
+		{
+			var result = _productImageDal.GetAll(i=>i.ProductId == productId);
+            if (result.Count>0)
+            {
+				return new SuccessDataResult<List<ProductImage>>(result);
+            }
+			return new ErrorDataResult<List<ProductImage>>(result, "Tapilmadi");
+        }
 	}
 }

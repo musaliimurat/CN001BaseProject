@@ -1,0 +1,43 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Product Detail";
+}
+@model ProductVM
+
+<section class="productDetail">
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="productItem">
+                    <img src="@Model.ProductImageGetById[0].PhotoUrl" class="mainImage"/>
+                    <div class="productDetail">
+                        <h3 class="productName">@Model.ProductGetById.ProductName</h3>
+                        <h5 class="productPrice">@Model.ProductGetById.Price AZN</h5>
+                        @{
+                            if (Model.ProductGetById.IsDiscount)
+                            {
+                                <p class="disCount">@Model.ProductGetById.DiscountRate %</p>
+                            }
+                        }
+                        <p class="productDescription">@Model.ProductGetById.Description</p>
+                    </div>
+                    <div class="allProductImage">
+                        <div class="row">
+                            @if (Model.ProductImageGetById.Count>0)
+                            {
+                                @foreach (var item in Model.ProductImageGetById)
+                                {
+                                    <div class="col-6 col-sm-2 col-md-2 col-lg-2">
+                                        <img class="img-fluid w-100 h-50" src="@item.PhotoUrl" />
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

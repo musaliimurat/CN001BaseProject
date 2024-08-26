@@ -6,5 +6,6 @@ namespace UI.ViewModels
 	public class HomeVM
 	{
         public List<ProductImageToProductsDto> Products { get; set; }
+       
     }
 }

@@ -12,10 +12,12 @@ namespace UI.Controllers
 	{
 		private readonly ILogger<HomeController> _logger;
 		private readonly IProductImageService _productImageService;
-		public HomeController(ILogger<HomeController> logger, IProductImageService productImageService)
+		private readonly IProductService _productService;
+		public HomeController(ILogger<HomeController> logger, IProductImageService productImageService, IProductService productService)
 		{
 			_logger = logger;
 			_productImageService = productImageService;
+			_productService = productService;
 		}
 
 		public IActionResult Index()
@@ -27,39 +29,17 @@ namespace UI.Controllers
 			};
 			return View(vm);
 		}
-		public IActionResult Detail()
-		{
-			return View();
-		}
-		public IActionResult Add()
-		{
-			return View();
-		}
-
-		[HttpPost]
-		public IActionResult Add(ProductImageAddDto productImage)
-		{
-			try
-			{
-				_productImageService.AddProductImage(productImage);
-				return RedirectToAction("Index");
-			}
-			catch (Exception)
-			{
-
-				return View();
-
-			}
-		}
+		
+		
 		public IActionResult Privacy()
 		{
 			return View();
 		}
 
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-		public IActionResult Error()
-		{
-			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-		}
+		//[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+		//public IActionResult Error()
+		//{
+		//	return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+		//}
 	}
 }
