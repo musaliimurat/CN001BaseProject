@@ -7,18 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\Concrete\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Autofac" Version="8.0.0" />
     <PackageReference Include="Autofac.Extras.DynamicProxy" Version="7.1.0" />
     <PackageReference Include="EntityFramework" Version="6.5.1" />
     <PackageReference Include="FluentValidation" Version="11.9.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="8.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.7" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.0.2" />
   </ItemGroup>
 
 </Project>

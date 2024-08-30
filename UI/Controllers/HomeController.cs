@@ -22,9 +22,9 @@ namespace UI.Controllers
 
 		public IActionResult Index()
 		{
+			
 			HomeVM vm = new()
 			{
-				
 				Products = _productImageService.GetAllProductImagesByFeatured().Data,
 			};
 			return View(vm);

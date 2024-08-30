@@ -18,7 +18,7 @@ namespace Business.Concrete
         //AOP => Aspect Oriented Programming
         // Ioc Container
         //interception => Cross Cutting Concern => Authoritaion, Cache,log, optimizasion, Exception handlig
-
+        //[SecuredOperation("admin,superadmin, product.add")]
         [ValidationAspect<Product>(typeof(ProductValidator))]
         public IResult Add(Product product)
         {

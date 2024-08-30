@@ -28,9 +28,6 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()).Conf
 
 var app = builder.Build();
 
-
-
-
 // Configure the HTTP request pipeline. 
 if (app.Environment.IsDevelopment())
 {
@@ -39,9 +36,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+//app.UseAuthentication();
 
 app.UseAuthorization();
 
 app.MapControllers();
 
+//Murad123 - 4S$Esfsadhaisdfs743545
+//passwordHash, passwordSalt
 app.Run();

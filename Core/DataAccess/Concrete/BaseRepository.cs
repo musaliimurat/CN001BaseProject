@@ -17,7 +17,7 @@ namespace Core.DataAccess.Concrete
         private readonly TContext _context = context;
         
         public void Add(TEntiy entity)
-        {
+        { 
                 var addedEntity = _context.Entry(entity);
                 addedEntity.State = EntityState.Added;
                 _context.SaveChanges();
