@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Concrete;
+using Core.Extensions;
 using Core.Helpers.Security.Encryption;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -14,9 +15,10 @@ namespace Core.Helpers.Security.JWT
 {
     public class JwtHelper : ITokenHelper
     {
-        private IConfiguration _configuration { get; }
         private DateTime _expirationDate;
         private TokenOptions _tokenOptions;
+        private IConfiguration _configuration { get; }
+
 
         public JwtHelper(IConfiguration configuration)
         {
@@ -53,18 +55,31 @@ namespace Core.Helpers.Security.JWT
             return jwtSecurityToken;
         }
 
-        private List<Claim> SetClaims(User user, List<OperationClaim> opeartionClaims)
+        private static List<Claim> SetClaims(User user, List<OperationClaim> opeartionClaims)
         {
-            List<Claim> claims = [
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
-                new Claim(ClaimTypes.Email, user.Email),
-                ];
+            var claims = new List<Claim>();
+            claims.AddNameIdentifier($"{user.Id}");
+            claims.AddName($"{user.FirstName} {user.LastName}");
+            claims.AddEmail(user.Email);
+            claims.AddRoles(opeartionClaims.Select(r=>r.Name).ToArray());
 
-            foreach (var claim in opeartionClaims)
             {
-                claims.Add(new Claim(ClaimTypes.Role, claim.Name));
+                //id: 2
+                // name : murad musali
+                // Email: musalimurat@gmail.com
+                // Role : [admin, moderator]
             }
+            //List<Claim> claims = [
+            //    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            //    new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
+            //    new Claim(ClaimTypes.Email, user.Email),
+            //    ];
+
+            //foreach (var claim in opeartionClaims)
+            //{
+            //    claims.Add(new Claim(ClaimTypes.Role, claim.Name));
+            //}
+
 
             return claims;
 

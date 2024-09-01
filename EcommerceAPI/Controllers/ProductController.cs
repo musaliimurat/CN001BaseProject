@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Concrete;
+using Core.Helpers.IoC;
 using DataAccess.Concrete.EF;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
