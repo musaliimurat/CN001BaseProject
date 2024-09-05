@@ -8,6 +8,7 @@ using Core.Helpers.Interceptors;
 using Core.Helpers.Security.JWT;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EF;
+using Microsoft.AspNetCore.Http;
 
 namespace Business.Dependency.autofac
 {
@@ -32,7 +33,6 @@ namespace Business.Dependency.autofac
 
             builder.RegisterType<BaseProjectContext>().As<BaseProjectContext>().SingleInstance();
             builder.RegisterType<AddPhotoHelper>().As<IAddPhotoHelperService>().SingleInstance();
-
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
                 .EnableInterfaceInterceptors(new ProxyGenerationOptions()

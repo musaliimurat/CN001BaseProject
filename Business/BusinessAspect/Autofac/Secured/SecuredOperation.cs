@@ -10,25 +10,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Business.BusinessAspect.Autofac.Secured
+namespace Business.BusinessAspect.Autofac
 {
-    public class SecuredAspect : MethodInterception
+    public class SecuredOperation : MethodInterception
     {
-        //depedency inversion
         private string[] _roles;
         private IHttpContextAccessor _httpContextAccessor;
 
-        public SecuredAspect(string role)
+        public SecuredOperation(string roles)
         {
-            
-            _roles = role.Split(',');
+            _roles = roles.Split(',');
             _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>();
+           
         }
+      
         protected override void OnBefore(IInvocation invocation)
         {
             var roleClaims = _httpContextAccessor?.HttpContext?.User.ClaimRoles();
-            //1 - Admin, moderator
-            // - superAdmin, masterAdmin
             foreach (var roleClaim in _roles)
             {
                 if (roleClaims!.Contains(roleClaim))
@@ -37,7 +35,8 @@ namespace Business.BusinessAspect.Autofac.Secured
                 }
 
             }
-            throw new Exception("Bu emeliyyati yerine yetirmeye icazeniz yoxdur");
+            Exception exception = new("Yetkiniz yoxdur");
+            throw exception;
         }
     }
 }

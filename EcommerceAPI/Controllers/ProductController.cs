@@ -3,6 +3,7 @@ using Business.Concrete;
 using Core.Helpers.IoC;
 using DataAccess.Concrete.EF;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,6 +43,7 @@ namespace EcommerceAPI.Controllers
             else return BadRequest(result);
         }
 
+
         [HttpGet("getProduct")]
         public IActionResult Get(int id)
         {
@@ -56,6 +58,7 @@ namespace EcommerceAPI.Controllers
         [HttpPost("addProduct")]
         public IActionResult Add(Product product) 
         {
+            
             var result = _productService.Add(product);
             if (result.Success)
                 return Ok(result);

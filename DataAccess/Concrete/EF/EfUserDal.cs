@@ -14,19 +14,16 @@ namespace DataAccess.Concrete.EF
     {
         public List<OperationClaim> GetClaims(User user)
         {
-            var context = new BaseProjectContext();
-            var result = from operationClaim in context.OperationClaims
-                         join o in context.UserOperationClaims
-                         on operationClaim.Id equals o.OperationClaimId
-                         where o.UserId == user.Id
-                         select
-                         new OperationClaim
-                         {
-                             Id = operationClaim.Id,
-                             Name = operationClaim.Name
-                         };
-            return result.ToList();
+            using (var context = new BaseProjectContext())
+            {
+                var result = from operationClaim in context.OperationClaims
+                             join userOperationClaim in context.UserOperationClaims
+                                 on operationClaim.Id equals userOperationClaim.OperationClaimId
+                             where userOperationClaim.UserId == user.Id
+                             select new OperationClaim { Id = operationClaim.Id, Name = operationClaim.Name };
+                return result.ToList();
 
+            }
         }
     }
 }

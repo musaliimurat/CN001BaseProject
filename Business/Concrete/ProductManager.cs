@@ -1,5 +1,5 @@
 ﻿using Business.Abstract;
-using Business.BusinessAspect.Autofac.Secured;
+using Business.BusinessAspect.Autofac;
 using Business.Validation.FluentValidation;
 using Core.Aspects.Autofac.Validation.FluentValidation;
 using Core.CrossCuttingConcern.Validation.FluentValidation;
@@ -21,7 +21,7 @@ namespace Business.Concrete
         //interception => Cross Cutting Concern => Authoritaion, Cache,log, optimizasion, Exception handlig
         //[SecuredOperation("admin,superadmin, product.add")]]
 
-        [SecuredAspect("Admin,Moderator")]
+        [SecuredOperation("admin,moderator")]
         [ValidationAspect<Product>(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
